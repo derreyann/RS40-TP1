@@ -104,7 +104,7 @@ print("voici le message chiffré avec la publique d'Alice : ")
 chif=home_mod_expnoent(num_sec, ea, na)
 print(chif)
 print("*******************************************************************")
-print("On utilise la fonction de hashage MD5 pour obtenir le hash du message",secret)
+print("On utilise la fonction de hashage 256 pour obtenir le hash du message",secret)
 Bhachis0=hashlib.sha256(secret.encode(encoding='UTF-8',errors='strict')).digest() #SHA-256 du message
 print("voici le hash en nombre décimal ")
 Bhachis1=binascii.b2a_uu(Bhachis0)

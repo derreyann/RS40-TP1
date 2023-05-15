@@ -57,6 +57,22 @@ def home_int_to_string(x): # pour transformer un int en string
 
 
 
+def generate_large_prime():
+    while True:
+        p = random.getrandbits(1024)
+        if is_prime(p):
+            return p
+
+def is_prime(n, k=5):
+    if n <= 3:
+        return n == 2 or n == 3
+    for i in range(k):
+        a = random.randint(2, n-2)
+        x = pow(a, n-1, n)
+        if x != 1:
+            return False
+    return True
+
 
 def mot10char(): #entrer le secret
     secret=input("donner un secret ")
@@ -83,8 +99,12 @@ def home_mod_inv(a, n):
     return t
 
 #voici les éléments de la clé d'Alice
-x1a=2507664037768206267142049874749912596696721705624614311043871638159594081658948017417517063175564773#p
-x2a=9064535093468660039337794947273231252030184947112929047213791821593413585569214521502191998829419019#q
+#x1a=2507664037768206267142049874749912596696721705624614311043871638159594081658948017417517063175564773#p
+#x2a=9064535093468660039337794947273231252030184947112929047213791821593413585569214521502191998829419019#q
+x1a=generate_large_prime()#p
+x2a=generate_large_prime()#q
+print(x1a)
+print(x2a)
 na=x1a*x2a  #n
 phia=((x1a-1)*(x2a-1))//home_pgcd(x1a-1,x2a-1)
 ea=65537 #exposant public
@@ -133,7 +153,7 @@ print("voici le message chiffré avec la publique d'Alice : ")
 chif = home_mod_expnoent(num_sec, ea, na)
 print(chif)
 print("*******************************************************************")
-print("On utilise la fonction de hashage MD5 pour obtenir le hash du message", secret)
+print("On utilise la fonction de hashage SHA256 pour obtenir le hash du message", secret)
 Bhachis0 = hashlib.sha256(secret.encode(encoding='UTF-8', errors='strict')).digest()  # SHA-256 du message
 print("voici le hash en nombre décimal ")
 Bhachis1 = binascii.b2a_uu(Bhachis0)
